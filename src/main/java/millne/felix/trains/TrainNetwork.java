@@ -1,18 +1,17 @@
 package millne.felix.trains;
 
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import java.util.Collection;
+import java.util.Map;
 
-/**
- * Created by FelixMarcus on 13/12/2017.
- */
 public class TrainNetwork {
 
-    private Collection<Station> stations = Sets.newHashSet();
+    private Map<String, Station> stations = Maps.newHashMap();
 
     public boolean hasStation(Station station) {
-        return stations.contains(station);
+        return stations.containsKey(station.name());
     }
 
     public void addStation(Station station) {
@@ -20,18 +19,33 @@ public class TrainNetwork {
             throw new IllegalArgumentException("TrainNetwork cannot have a null station in it");
         }
 
-        stations.add(new Station(station.name()));
+        stations.put(station.name(), new Station(station.name()));
     }
 
     public void addRoute(Station departure, Station destination, int distance) {
-        if(!stations.contains(departure)){
+        if(!stations.containsKey(departure.name())){
             addStation(departure);
         }
 
-        if(!stations.contains(destination)){
+        if(!stations.containsKey(destination.name())){
             addStation(destination);
         }
 
-        departure.addRouteTo(destination, distance);
+        Station networkDeparture = stations.get(departure.name());
+        Station networkDestination = stations.get(destination.name());
+
+        networkDeparture.addRouteTo(networkDestination, distance);
+    }
+
+    public boolean hasRoute(Station departure, Station destination) {
+        if(departure == null || destination == null
+                || !hasStation(departure) || !hasStation(destination)){
+            return false;
+        }
+
+        Station networkDeparture = stations.get(departure.name());
+        Station networkDestination = stations.get(destination.name());
+
+        return networkDeparture.hasRouteTo(networkDestination);
     }
 }

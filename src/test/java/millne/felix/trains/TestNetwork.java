@@ -3,6 +3,7 @@ package millne.felix.trains;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -52,5 +53,49 @@ public class TestNetwork {
         testNetwork.addStation(manchester);
 
         testNetwork.addRoute(liverpool, manchester, 2);
+
+        assertTrue(testNetwork.hasRoute(liverpool, manchester));
+    }
+
+    @Test
+    public void testNetworkHasNoRouteToNowhere(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station liverpool = new Station(LIVERPOOL_LIME_ST);
+        testNetwork.addStation(liverpool);
+
+        Station manchester = new Station(MANCHESTER_PICCADILLY);
+        testNetwork.addStation(manchester);
+
+        testNetwork.addRoute(liverpool, manchester, 2);
+
+        assertFalse(testNetwork.hasRoute(liverpool, null));
+    }
+
+    @Test
+    public void testNetworkHasNoRouteFromNowhere(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station liverpool = new Station(LIVERPOOL_LIME_ST);
+        testNetwork.addStation(liverpool);
+
+        Station manchester = new Station(MANCHESTER_PICCADILLY);
+        testNetwork.addStation(manchester);
+
+        testNetwork.addRoute(liverpool, manchester, 2);
+
+        assertFalse(testNetwork.hasRoute(null, manchester));
+    }
+
+    @Test
+    public void testNetworkHasNoRouteOffOfNetwork(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station liverpool = new Station(LIVERPOOL_LIME_ST);
+        testNetwork.addStation(liverpool);
+
+        Station manchester = new Station(MANCHESTER_PICCADILLY);
+        testNetwork.addStation(manchester);
+
+        testNetwork.addRoute(liverpool, manchester, 2);
+
+        assertFalse(testNetwork.hasRoute(liverpool, new Station(CAMBRIDGE)));
     }
 }
