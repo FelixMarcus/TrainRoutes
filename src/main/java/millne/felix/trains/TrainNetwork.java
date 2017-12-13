@@ -6,6 +6,7 @@ import com.google.common.collect.Sets;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TrainNetwork {
 
@@ -48,22 +49,41 @@ public class TrainNetwork {
             return true;
         }
 
-        Set<Station> allFoundStations = Sets.newHashSet();
+        Set<Station> allFoundStations = Sets.newHashSet(stations.get(departure.name()));
+
+        return hasComplexRouteToStation(departure, destination, allFoundStations);
+    }
+
+    private boolean hasComplexRouteToStation(Station departure, Station destination, Set<Station> allFoundStations) {
         Collection<Station> routes = stations.get(departure.name()).routes();
 
-        boolean hasAnyRoutes = routes.stream()
+        Collection<Station> unprocessedStations = routes.stream()
                 .filter(station -> !allFoundStations.contains(station))
+                .collect(Collectors.toSet());
+
+        if(unprocessedStations.isEmpty()){
+            return false;
+        }
+
+        boolean hasAnyRoutes = unprocessedStations.stream()
                 .map(Station::name)
-                .map((String routeName) -> stations.get(routeName).hasRouteTo(destination))
+                .map(stations::get)
+                .map((Station station) -> station.hasRouteTo(destination))
                 .anyMatch(Boolean::booleanValue);
-
-        allFoundStations.addAll(routes);
-
+        
         if(hasAnyRoutes){
             return true;
         }
-
-        return hasAnyRoutes;
+        
+        allFoundStations.addAll(routes);
+        
+        return unprocessedStations.stream()
+                .map(Station::name)
+                .map(stations::get)
+                .map(Station::routes)
+                .flatMap(Collection::stream)
+                .map((station -> hasComplexRouteToStation(station, destination, allFoundStations)))
+                .anyMatch(Boolean::booleanValue);
     }
 
     private boolean hasSingleStepRoute(Station departure, Station destination) {

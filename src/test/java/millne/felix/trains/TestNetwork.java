@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class TestNetwork {
 
     private static final String LONDON_EUSTON = "London Euston";
+    private static final String LONDON_KINGS_CROSS = "Kings Cross St Pancras";
     private static final String LIVERPOOL_LIME_ST = "Liverpool Lime St";
     private static final String MANCHESTER_PICCADILLY = "Manchester Piccadilly";
     private static final String CAMBRIDGE = "Cambridge";
@@ -115,5 +116,57 @@ public class TestNetwork {
         testNetwork.addRoute(manchester, euston, 3);
 
         assertTrue(testNetwork.hasRoute(liverpool, euston));
+    }
+
+    @Test
+    public void testNetworkCanFindHighlyComplexRoute(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station liverpool = new Station(LIVERPOOL_LIME_ST);
+        testNetwork.addStation(liverpool);
+
+        Station manchester = new Station(MANCHESTER_PICCADILLY);
+        testNetwork.addStation(manchester);
+
+        Station euston = new Station(LONDON_EUSTON);
+        testNetwork.addStation(euston);
+
+        Station kingsCross = new Station(LONDON_KINGS_CROSS);
+        testNetwork.addStation(kingsCross);
+
+        Station cambridge = new Station(CAMBRIDGE);
+        testNetwork.addStation(cambridge);
+
+        testNetwork.addRoute(liverpool, manchester, 2);
+        testNetwork.addRoute(manchester, euston, 3);
+        testNetwork.addRoute(euston, kingsCross, 1);
+        testNetwork.addRoute(kingsCross, cambridge, 2);
+
+        assertTrue(testNetwork.hasRoute(liverpool, cambridge));
+    }
+
+    @Test
+    public void testNetworkCantFindDestinationOnHighlyComplexRoute(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station liverpool = new Station(LIVERPOOL_LIME_ST);
+        testNetwork.addStation(liverpool);
+
+        Station manchester = new Station(MANCHESTER_PICCADILLY);
+        testNetwork.addStation(manchester);
+
+        Station euston = new Station(LONDON_EUSTON);
+        testNetwork.addStation(euston);
+
+        Station kingsCross = new Station(LONDON_KINGS_CROSS);
+        testNetwork.addStation(kingsCross);
+
+        Station cambridge = new Station(CAMBRIDGE);
+        testNetwork.addStation(cambridge);
+
+        testNetwork.addRoute(liverpool, manchester, 2);
+        testNetwork.addRoute(manchester, euston, 3);
+        testNetwork.addRoute(euston, kingsCross, 1);
+        testNetwork.addRoute(kingsCross, cambridge, 2);
+
+        assertFalse(testNetwork.hasRoute(manchester, liverpool));
     }
 }
