@@ -41,4 +41,16 @@ public class TestNetwork {
         TrainNetwork testNetwork = new TrainNetwork();
         testNetwork.addStation(null);
     }
+
+    @Test
+    public void testNetworkHasRoute(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station liverpool = new Station(LIVERPOOL_LIME_ST);
+        testNetwork.addStation(liverpool);
+
+        Station manchester = new Station(MANCHESTER_PICCADILLY);
+        testNetwork.addStation(manchester);
+
+        testNetwork.addRoute(liverpool, manchester, 2);
+    }
 }

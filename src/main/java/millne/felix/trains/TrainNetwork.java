@@ -20,6 +20,18 @@ public class TrainNetwork {
             throw new IllegalArgumentException("TrainNetwork cannot have a null station in it");
         }
 
-        stations.add(station);
+        stations.add(new Station(station.name()));
+    }
+
+    public void addRoute(Station departure, Station destination, int distance) {
+        if(!stations.contains(departure)){
+            addStation(departure);
+        }
+
+        if(!stations.contains(destination)){
+            addStation(destination);
+        }
+
+        departure.addRouteTo(destination, distance);
     }
 }
