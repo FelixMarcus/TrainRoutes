@@ -3,6 +3,7 @@ package millne.felix.trains;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -41,5 +42,14 @@ public class TestStation {
     @Test(expected = IllegalArgumentException.class)
     public void testStationCannotHaveNullName(){
         Station testStation = new Station(null);
+    }
+
+    @Test
+    public void testStationWithRouteHasDistantForThatRoute() {
+        Station departureStation = new Station("London Euston");
+        Station destination = new Station("London Euston");
+        departureStation.addRouteTo(destination);
+        departureStation.getDistantTo(destination);
+        assertEquals(1, departureStation.getDistantTo(destination));
     }
 }

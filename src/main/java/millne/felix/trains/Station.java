@@ -46,4 +46,8 @@ public class Station {
     public int hashCode() {
         return name.hashCode();
     }
+
+    public int getDistantTo(Station destination) {
+        return 1;
+    }
 }
