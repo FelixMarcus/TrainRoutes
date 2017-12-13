@@ -12,21 +12,29 @@ public class TestStation {
 
     @Test
     public void testStationHasNoRouteToNullStation(){
-        Station station = new Station();
+        Station station = new Station("London Euston");
         assertFalse(station.hasRouteTo(null));
     }
 
     @Test
     public void testStationHasNoRoute(){
-        Station station = new Station();
-        assertFalse(station.hasRouteTo(new Station()));
+        Station station = new Station("London Euston");
+        assertFalse(station.hasRouteTo(new Station("London Euston")));
     }
 
     @Test
     public void testStationGivenRouteHasRoute(){
-        Station departureStation = new Station();
-        Station destination = new Station();
+        Station departureStation = new Station("London Euston");
+        Station destination = new Station("London Euston");
         departureStation.addRouteTo(destination);
         assertTrue(departureStation.hasRouteTo(destination));
+    }
+
+    @Test
+    public void testStationGivenDifferentRouteWithSameNameHasRoute(){
+        Station departureStation = new Station("London Euston");
+        Station destination = new Station("London Euston");
+        departureStation.addRouteTo(destination);
+        assertTrue(departureStation.hasRouteTo(new Station("London Euston")));
     }
 }

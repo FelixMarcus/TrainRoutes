@@ -9,6 +9,11 @@ import java.util.Set;
  */
 public class Station {
     private final Set<Station> destinations = Sets.newHashSet();
+    private final String name;
+
+    public Station(String name) {
+        this.name = name;
+    }
 
     public boolean hasRouteTo(Station toStation) {
         if(toStation == null) {
