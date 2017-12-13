@@ -1,24 +1,38 @@
 package millne.felix.trains;
 
-import com.google.common.graph.Network;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by FelixMarcus on 13/12/2017.
  */
 public class TestNetwork {
 
-    public static final String LONDON_EUSTON = "London Euston";
-    public static final String LIVERPOOL_LIME_ST = "Liverpool Lime St";
-    public static final String MANCHESTER_PICCADILLY = "Manchester Piccadilly";
-    public static final String CAMBRIDGE = "Cambridge";
+    private static final String LONDON_EUSTON = "London Euston";
+    private static final String LIVERPOOL_LIME_ST = "Liverpool Lime St";
+    private static final String MANCHESTER_PICCADILLY = "Manchester Piccadilly";
+    private static final String CAMBRIDGE = "Cambridge";
 
     @Test
     public void testBlankNetworkHasNoStation(){
-
         TrainNetwork testNetwork = new TrainNetwork();
-        assertFalse(testNetwork.hasStation());
+        assertFalse(testNetwork.hasStation(new Station(CAMBRIDGE)));
+    }
+
+    @Test
+    public void testNetworkDoesNotHaveStation(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        testNetwork.addStation(new Station(LIVERPOOL_LIME_ST));
+        assertFalse(testNetwork.hasStation(new Station(CAMBRIDGE)));
+    }
+
+    @Test
+    public void testNetworkKnowsItHasStation(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station liverpool = new Station(LIVERPOOL_LIME_ST);
+        testNetwork.addStation(liverpool);
+        assertTrue(testNetwork.hasStation(liverpool));
     }
 }

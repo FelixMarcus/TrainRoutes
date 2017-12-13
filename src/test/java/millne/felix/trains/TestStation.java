@@ -11,10 +11,10 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestStation {
 
-    public static final String LONDON_EUSTON = "London Euston";
-    public static final String LIVERPOOL_LIME_ST = "Liverpool Lime St";
-    public static final String MANCHESTER_PICCADILLY = "Manchester Piccadilly";
-    public static final String CAMBRIDGE = "Cambridge";
+    private static final String LONDON_EUSTON = "London Euston";
+    private static final String LIVERPOOL_LIME_ST = "Liverpool Lime St";
+    private static final String MANCHESTER_PICCADILLY = "Manchester Piccadilly";
+    private static final String CAMBRIDGE = "Cambridge";
 
     @Test
     public void testStationHasNoRouteToNullStation(){
