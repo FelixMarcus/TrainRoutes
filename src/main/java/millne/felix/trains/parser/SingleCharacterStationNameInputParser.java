@@ -20,12 +20,14 @@ public class SingleCharacterStationNameInputParser {
 
         ArrayList<RouteSet> parsedRoutes = Lists.newArrayList();
 
-        char firstChar = testInput.charAt(0);
-        char secondChar = testInput.charAt(1);
-        String numString = testInput.substring(2);
-        Integer parsedNum = Integer.valueOf(numString);
-        RouteSet set = new RouteSet(String.valueOf(firstChar), String.valueOf(secondChar), parsedNum);
-        parsedRoutes.add(set);
+        for(String splitString: testInput.split(" ")) {
+            char firstChar = splitString.charAt(0);
+            char secondChar = splitString.charAt(1);
+            String numString = splitString.substring(2);
+            Integer parsedNum = Integer.valueOf(numString);
+            RouteSet set = new RouteSet(String.valueOf(firstChar), String.valueOf(secondChar), parsedNum);
+            parsedRoutes.add(set);
+        }
         return parsedRoutes;
     }
 }

@@ -9,9 +9,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by FelixMarcus on 13/12/2017.
- */
 public class TestSingleCharacterStationNameInputParser {
 
     @Test
@@ -31,6 +28,18 @@ public class TestSingleCharacterStationNameInputParser {
 
         assertEquals(1, parseResult.size());
         assertEquals(new RouteSet("A", "B", 1), parseResult.get(0));
+
+    }
+
+    @Test
+    public void testParseDoubleCharacterSetIntoRouteSet() {
+        String testInput = "AB1 BC2";
+        SingleCharacterStationNameInputParser testParser = new SingleCharacterStationNameInputParser();
+        List<RouteSet> parseResult = testParser.parse(testInput);
+
+        assertEquals(2, parseResult.size());
+        assertEquals(new RouteSet("A", "B", 1), parseResult.get(0));
+        assertEquals(new RouteSet("B", "C", 2), parseResult.get(1));
 
     }
 }
