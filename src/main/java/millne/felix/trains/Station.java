@@ -63,7 +63,9 @@ public class Station {
      * Retrieves the previously set distance to @destination
      *
      * @param destination
-     * @return
+     * @return distance to the given destination
+     *
+     * @throws IllegalArgumentException if there is no route to destination
      */
     public int getDistanceTo(Station destination) {
         if(!destinations.containsKey(destination)){
