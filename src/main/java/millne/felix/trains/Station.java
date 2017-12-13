@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -93,5 +94,9 @@ public class Station {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    public Collection<Station> routes() {
+        return Sets.newHashSet(destinations.keySet());
     }
 }

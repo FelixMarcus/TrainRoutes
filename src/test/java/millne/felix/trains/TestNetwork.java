@@ -85,8 +85,22 @@ public class TestNetwork {
         assertFalse(testNetwork.hasRoute(null, manchester));
     }
 
+        @Test
+        public void testNetworkHasNoRouteOffOfNetwork(){
+            TrainNetwork testNetwork = new TrainNetwork();
+            Station liverpool = new Station(LIVERPOOL_LIME_ST);
+            testNetwork.addStation(liverpool);
+
+            Station manchester = new Station(MANCHESTER_PICCADILLY);
+            testNetwork.addStation(manchester);
+
+            testNetwork.addRoute(liverpool, manchester, 2);
+
+            assertFalse(testNetwork.hasRoute(liverpool, new Station(CAMBRIDGE)));
+    }
+
     @Test
-    public void testNetworkHasNoRouteOffOfNetwork(){
+    public void testNetworkCanFindMoreComplexRoute(){
         TrainNetwork testNetwork = new TrainNetwork();
         Station liverpool = new Station(LIVERPOOL_LIME_ST);
         testNetwork.addStation(liverpool);
@@ -94,8 +108,12 @@ public class TestNetwork {
         Station manchester = new Station(MANCHESTER_PICCADILLY);
         testNetwork.addStation(manchester);
 
-        testNetwork.addRoute(liverpool, manchester, 2);
+        Station euston = new Station(LONDON_EUSTON);
+        testNetwork.addStation(euston);
 
-        assertFalse(testNetwork.hasRoute(liverpool, new Station(CAMBRIDGE)));
+        testNetwork.addRoute(liverpool, manchester, 2);
+        testNetwork.addRoute(manchester, euston, 3);
+
+        assertTrue(testNetwork.hasRoute(liverpool, euston));
     }
 }

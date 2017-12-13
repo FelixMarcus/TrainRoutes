@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 public class TrainNetwork {
 
@@ -37,11 +38,29 @@ public class TrainNetwork {
         networkDeparture.addRouteTo(networkDestination, distance);
     }
 
-    public boolean hasRoute(Station departure, Station destination) {
+    public boolean hasRoute(Station departure, final Station destination) {
         if(departure == null || destination == null
                 || !hasStation(departure) || !hasStation(destination)){
             return false;
         }
+
+        if(hasSingleStepRoute(departure, destination)){
+            return true;
+        }
+
+        Set<Station> allFoundStations = Sets.newHashSet();
+        Collection<Station> routes = stations.get(departure.name()).routes();
+        allFoundStations.addAll(routes);
+
+        boolean hasAnyRoutes = routes.stream()
+                .map(Station::name)
+                .map((String routeName) -> stations.get(routeName).hasRouteTo(destination))
+                .anyMatch(Boolean::booleanValue);
+
+        return hasAnyRoutes;
+    }
+
+    private boolean hasSingleStepRoute(Station departure, Station destination) {
 
         Station networkDeparture = stations.get(departure.name());
         Station networkDestination = stations.get(destination.name());
