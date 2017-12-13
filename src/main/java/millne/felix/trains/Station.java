@@ -5,6 +5,10 @@ package millne.felix.trains;
  */
 public class Station {
     public boolean hasRoute(Station toStation) {
-        return false;
+        if(toStation == null) {
+            return false;
+        }
+
+        return true;
     }
 }
