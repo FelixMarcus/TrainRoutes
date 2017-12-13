@@ -27,7 +27,7 @@ public class TestStation {
     public void testStationGivenRouteHasRoute(){
         Station departureStation = new Station("London Euston");
         Station destination = new Station("Liverpool Lime St");
-        departureStation.addRouteTo(destination);
+        departureStation.addRouteTo(destination, 1);
         assertTrue(departureStation.hasRouteTo(destination));
     }
 
@@ -35,7 +35,7 @@ public class TestStation {
     public void testStationGivenDifferentRouteWithSameNameHasRoute(){
         Station departureStation = new Station("London Euston");
         Station destination = new Station("Liverpool Lime St");
-        departureStation.addRouteTo(destination);
+        departureStation.addRouteTo(destination, 1);
         assertTrue(departureStation.hasRouteTo(new Station("Liverpool Lime St")));
     }
 
@@ -48,7 +48,18 @@ public class TestStation {
     public void testStationWithRouteHasDistanceForThatRoute() {
         Station departureStation = new Station("London Euston");
         Station destination = new Station("London Euston");
-        departureStation.addRouteTo(destination);
+        departureStation.addRouteTo(destination, 1);
         assertEquals(1, departureStation.getDistanceTo(destination));
+    }
+
+    @Test
+    public void testStationWithRoutesKnowsDifferentDistanceForBothRoute() {
+        Station euston = new Station("London Euston");
+        Station liverpool = new Station("Liverpool Lime St");
+        Station manchester = new Station("Manchester Piccadilly");
+        euston.addRouteTo(liverpool, 1);
+        euston.addRouteTo(manchester, 2);
+        assertEquals(1, euston.getDistanceTo(liverpool));
+        assertEquals(2, euston.getDistanceTo(manchester));
     }
 }

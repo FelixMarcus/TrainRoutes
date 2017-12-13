@@ -1,8 +1,10 @@
 package millne.felix.trains;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Set;
  */
 public class Station {
 
-    private final Set<Station> destinations = Sets.newHashSet();
+    private final Map<Station, Integer> destinations = Maps.newHashMap();
     private final String name;
 
     public Station(String name) {
@@ -25,12 +27,17 @@ public class Station {
             return false;
         }
 
-        return destinations.contains(toStation);
+        return destinations.containsKey(toStation);
     }
 
-    public void addRouteTo(Station destination) {
-        destinations.add(destination);
+    public void addRouteTo(Station destination, int distance) {
+        destinations.put(destination, distance);
     }
+
+    public int getDistanceTo(Station destination) {
+        return destinations.get(destination);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,9 +52,5 @@ public class Station {
     @Override
     public int hashCode() {
         return name.hashCode();
-    }
-
-    public int getDistanceTo(Station destination) {
-        return 1;
     }
 }
