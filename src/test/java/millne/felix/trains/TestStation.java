@@ -57,6 +57,12 @@ public class TestStation {
         assertEquals(1, departureStation.getDistanceTo(destination));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testStationThrowsExceptionIfGivenRouteToNowhere() {
+        Station departureStation = new Station(LONDON_EUSTON);
+        departureStation.addRouteTo(null, 1);
+    }
+
     @Test
     public void testStationWithRoutesKnowsDifferentDistanceForBothRoute() {
         Station euston = new Station(LONDON_EUSTON);

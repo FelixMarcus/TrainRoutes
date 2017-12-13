@@ -56,6 +56,10 @@ public class Station {
      * @param distance    - Distance to @destination
      */
     public void addRouteTo(Station destination, int distance) {
+        if(destination == null){
+            throw new IllegalArgumentException("Cannot set station route destination to nowhere");
+        }
+
         destinations.put(destination, distance);
     }
 
