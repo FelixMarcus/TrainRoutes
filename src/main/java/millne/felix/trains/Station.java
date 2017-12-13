@@ -14,6 +14,9 @@ public class Station {
     private final String name;
 
     public Station(String name) {
+        if(Strings.isNullOrEmpty(name)){
+            throw new IllegalArgumentException("Station name cannot be null");
+        }
         this.name = name;
     }
 

@@ -37,4 +37,9 @@ public class TestStation {
         departureStation.addRouteTo(destination);
         assertTrue(departureStation.hasRouteTo(new Station("London Euston")));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testStationCannotHaveNullName(){
+        Station testStation = new Station(null);
+    }
 }
