@@ -1,6 +1,5 @@
 package millne.felix.trains;
 
-import millne.felix.trains.Station;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
@@ -14,13 +13,13 @@ public class TestStation {
     @Test
     public void testStationHasNoRouteToNullStation(){
         Station station = new Station();
-        assertFalse(station.hasRoute(null));
+        assertFalse(station.hasRouteTo(null));
     }
 
     @Test
     public void testStationHasNoRoute(){
         Station station = new Station();
-        assertFalse(station.hasRoute(new Station()));
+        assertFalse(station.hasRouteTo(new Station()));
     }
 
     @Test
@@ -28,6 +27,6 @@ public class TestStation {
         Station departureStation = new Station();
         Station destination = new Station();
         departureStation.addRouteTo(destination);
-        assertFalse(departureStation.hasRoute(new Station()));
+        assertTrue(departureStation.hasRouteTo(destination));
     }
 }

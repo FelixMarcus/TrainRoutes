@@ -10,12 +10,12 @@ import java.util.Set;
 public class Station {
     private final Set<Station> destinations = Sets.newHashSet();
 
-    public boolean hasRoute(Station toStation) {
+    public boolean hasRouteTo(Station toStation) {
         if(toStation == null) {
             return false;
         }
 
-        return destinations.contains(destinations);
+        return destinations.contains(toStation);
     }
 
     public void addRouteTo(Station destination) {
