@@ -50,12 +50,18 @@ public class TrainNetwork {
 
         Set<Station> allFoundStations = Sets.newHashSet();
         Collection<Station> routes = stations.get(departure.name()).routes();
-        allFoundStations.addAll(routes);
 
         boolean hasAnyRoutes = routes.stream()
+                .filter(station -> !allFoundStations.contains(station))
                 .map(Station::name)
                 .map((String routeName) -> stations.get(routeName).hasRouteTo(destination))
                 .anyMatch(Boolean::booleanValue);
+
+        allFoundStations.addAll(routes);
+
+        if(hasAnyRoutes){
+            return true;
+        }
 
         return hasAnyRoutes;
     }
