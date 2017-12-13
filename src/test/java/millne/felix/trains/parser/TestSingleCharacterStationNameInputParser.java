@@ -12,6 +12,15 @@ import static org.junit.Assert.assertTrue;
 public class TestSingleCharacterStationNameInputParser {
 
     @Test
+    public void testParseNullReturnsEmptyCollection() {
+        String testInput = null;
+        SingleCharacterStationNameInputParser testParser = new SingleCharacterStationNameInputParser();
+        Collection<RouteSet> parseResult = testParser.parse(testInput);
+
+        assertTrue(parseResult.isEmpty());
+    }
+
+    @Test
     public void testParseEmptyStringReturnsEmptyCollection() {
         String testInput = "";
         SingleCharacterStationNameInputParser testParser = new SingleCharacterStationNameInputParser();
@@ -28,7 +37,6 @@ public class TestSingleCharacterStationNameInputParser {
 
         assertEquals(1, parseResult.size());
         assertEquals(new RouteSet("A", "B", 1), parseResult.get(0));
-
     }
 
     @Test
@@ -40,6 +48,5 @@ public class TestSingleCharacterStationNameInputParser {
         assertEquals(2, parseResult.size());
         assertEquals(new RouteSet("A", "B", 1), parseResult.get(0));
         assertEquals(new RouteSet("B", "C", 2), parseResult.get(1));
-
     }
 }
