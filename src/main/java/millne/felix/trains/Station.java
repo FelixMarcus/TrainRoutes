@@ -1,5 +1,6 @@
 package millne.felix.trains;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
  * Created by FelixMarcus on 13/12/2017.
  */
 public class Station {
+
     private final Set<Station> destinations = Sets.newHashSet();
     private final String name;
 
@@ -25,5 +27,20 @@ public class Station {
 
     public void addRouteTo(Station destination) {
         destinations.add(destination);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Station station = (Station) o;
+
+        return name.equals(station.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }
