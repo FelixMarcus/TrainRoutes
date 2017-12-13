@@ -17,13 +17,11 @@ public class Station {
     private final String name;
 
     /**
-     *
      * @param name - The name of station. Must not be null. Primary identifier for equality between stations.
-     *
      * @throws IllegalArgumentException - on name value of @null
      */
     public Station(String name) {
-        if(Strings.isNullOrEmpty(name)){
+        if (Strings.isNullOrEmpty(name)) {
             throw new IllegalArgumentException("Station name cannot be null");
         }
         this.name = name;
@@ -36,7 +34,7 @@ public class Station {
      * @return @true if the station has a route to the given destination station, else @false if not or if destination is null
      */
     public boolean hasRouteTo(Station toStation) {
-        if(toStation == null) {
+        if (toStation == null) {
             return false;
         }
 
@@ -47,7 +45,7 @@ public class Station {
      * Sets a new route to the given @destination with given @distance
      *
      * @param destination - Target station of new route
-     * @param distance - Distance to @destination
+     * @param distance    - Distance to @destination
      */
     public void addRouteTo(Station destination, int distance) {
         destinations.put(destination, distance);
@@ -60,7 +58,11 @@ public class Station {
      * @return
      */
     public int getDistanceTo(Station destination) {
-        return destinations.get(destination);
+        if(!destinations.containsKey(destination)){
+            throw new IllegalArgumentException("No route to destination");
+        }
+
+        return  destinations.get(destination);
     }
 
     @Override
