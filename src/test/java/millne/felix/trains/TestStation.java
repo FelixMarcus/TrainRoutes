@@ -20,13 +20,13 @@ public class TestStation {
     @Test
     public void testStationHasNoRoute(){
         Station station = new Station("London Euston");
-        assertFalse(station.hasRouteTo(new Station("London Euston")));
+        assertFalse(station.hasRouteTo(new Station("Cambridge")));
     }
 
     @Test
     public void testStationGivenRouteHasRoute(){
         Station departureStation = new Station("London Euston");
-        Station destination = new Station("London Euston");
+        Station destination = new Station("Liverpool Lime St");
         departureStation.addRouteTo(destination);
         assertTrue(departureStation.hasRouteTo(destination));
     }
@@ -34,9 +34,9 @@ public class TestStation {
     @Test
     public void testStationGivenDifferentRouteWithSameNameHasRoute(){
         Station departureStation = new Station("London Euston");
-        Station destination = new Station("London Euston");
+        Station destination = new Station("Liverpool Lime St");
         departureStation.addRouteTo(destination);
-        assertTrue(departureStation.hasRouteTo(new Station("London Euston")));
+        assertTrue(departureStation.hasRouteTo(new Station("Liverpool Lime St")));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -45,11 +45,10 @@ public class TestStation {
     }
 
     @Test
-    public void testStationWithRouteHasDistantForThatRoute() {
+    public void testStationWithRouteHasDistanceForThatRoute() {
         Station departureStation = new Station("London Euston");
         Station destination = new Station("London Euston");
         departureStation.addRouteTo(destination);
-        departureStation.getDistantTo(destination);
-        assertEquals(1, departureStation.getDistantTo(destination));
+        assertEquals(1, departureStation.getDistanceTo(destination));
     }
 }
