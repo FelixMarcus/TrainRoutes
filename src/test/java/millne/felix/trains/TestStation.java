@@ -79,4 +79,10 @@ public class TestStation {
         Station euston = new Station(LONDON_EUSTON);
         int distanceToCambridge = euston.getDistanceTo(null);
     }
+
+    @Test
+    public void testStationKnowsItsName(){
+        Station euston = new Station(LONDON_EUSTON);
+        assertEquals(LONDON_EUSTON, euston.name());
+    }
 }

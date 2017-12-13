@@ -28,6 +28,14 @@ public class Station {
     }
 
     /**
+     * The station's name.
+     * @return The name of the station as set on construction.
+     */
+    public String name() {
+        return name;
+    }
+
+    /**
      * Determines if station has knowledge of a route to the destination station.
      *
      * @param toStation
@@ -62,7 +70,7 @@ public class Station {
             throw new IllegalArgumentException("No route to destination");
         }
 
-        return  destinations.get(destination);
+        return destinations.get(destination);
     }
 
     @Override
