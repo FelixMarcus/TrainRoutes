@@ -13,6 +13,6 @@ public class TestStation {
     @Test
     public void testStationHasNoRoutes(){
         Station station = new Station();
-        assertFalse(station.hasRoute());
+        assertFalse(station.hasRoute(null));
     }
 }
