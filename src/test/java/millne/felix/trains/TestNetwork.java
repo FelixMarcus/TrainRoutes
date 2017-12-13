@@ -3,12 +3,8 @@ package millne.felix.trains;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by FelixMarcus on 13/12/2017.
- */
 public class TestNetwork {
 
     private static final String LONDON_EUSTON = "London Euston";

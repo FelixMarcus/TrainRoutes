@@ -24,6 +24,10 @@ public class TrainNetwork {
         stations.put(station.name(), new Station(station.name()));
     }
 
+    public void addRoute(String departure, String destination, int distance) {
+        addRoute(new Station(departure), new Station(destination), distance);
+    }
+
     public void addRoute(Station departure, Station destination, int distance) {
         if(!stations.containsKey(departure.name())){
             addStation(departure);
