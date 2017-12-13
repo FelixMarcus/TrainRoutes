@@ -51,12 +51,14 @@ public class Station {
     }
 
     /**
-     * Sets a new route to the given @destination with given @distance
+     * Sets a new route to the given @destination with given @distance.
+     *
+     * Declared package private to ensure no external additions to network routes.
      *
      * @param destination - Target station of new route
      * @param distance    - Distance to @destination
      */
-    public void addRouteTo(Station destination, int distance) {
+    void addRouteTo(Station destination, int distance) {
         if(destination == null){
             throw new IllegalArgumentException("Cannot set station route destination to nowhere");
         }
