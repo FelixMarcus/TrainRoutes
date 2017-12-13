@@ -35,4 +35,10 @@ public class TestNetwork {
         testNetwork.addStation(liverpool);
         assertTrue(testNetwork.hasStation(liverpool));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNetworkCannotAddTrainsToNowhere(){
+        TrainNetwork testNetwork = new TrainNetwork();
+        testNetwork.addStation(null);
+    }
 }

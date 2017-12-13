@@ -16,6 +16,10 @@ public class TrainNetwork {
     }
 
     public void addStation(Station station) {
+        if(station == null){
+            throw new IllegalArgumentException("TrainNetwork cannot have a null station in it");
+        }
+
         stations.add(station);
     }
 }
