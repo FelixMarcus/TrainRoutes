@@ -13,9 +13,8 @@ public class TestSingleCharacterStationNameInputParser {
 
     @Test
     public void testParseNullReturnsEmptyCollection() {
-        String testInput = null;
         SingleCharacterStationNameInputParser testParser = new SingleCharacterStationNameInputParser();
-        Collection<RouteSet> parseResult = testParser.parse(testInput);
+        Collection<RouteSet> parseResult = testParser.parse(null);
 
         assertTrue(parseResult.isEmpty());
     }
