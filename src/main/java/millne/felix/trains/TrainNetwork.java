@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -96,5 +97,9 @@ public class TrainNetwork {
         Station networkDestination = stations.get(destination.name());
 
         return networkDeparture.hasRouteTo(networkDestination);
+    }
+
+    public int findExactRoute(List<Station> route) {
+        return 0;
     }
 }
