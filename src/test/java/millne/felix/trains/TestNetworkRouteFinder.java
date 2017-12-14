@@ -110,4 +110,25 @@ public class TestNetworkRouteFinder {
 
         assertEquals(3, exactRoute);
     }
+
+    @Test
+    public void testFindExactRouteWithThreeStationRouteOnCircularNetworkReturnsDistance() {
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station testStationDeparture = new Station("A");
+        Station testStationDestination1 = new Station("B");
+        Station testStationDestination2 = new Station("C");
+        testNetwork.addRoute(testStationDeparture, testStationDestination1, 1);
+        testNetwork.addRoute(testStationDestination1, testStationDestination2, 2);
+        testNetwork.addRoute(testStationDestination2, testStationDeparture, 3);
+        int exactRoute = testNetwork.findExactRoute(
+                Lists.newArrayList(
+                        testStationDeparture,
+                        testStationDestination1,
+                        testStationDestination2,
+                        testStationDeparture
+                )
+        );
+
+        assertEquals(6, exactRoute);
+    }
 }
