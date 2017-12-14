@@ -3,14 +3,14 @@ package millne.felix.trains;
 import java.util.List;
 import java.util.Map;
 
-class ExactRouteFinder {
+class ExactRoute {
     private final Map<String, Station> networkStations;
 
-    ExactRouteFinder(Map<String, Station> networkStations) {
+    ExactRoute(Map<String, Station> networkStations) {
         this.networkStations = networkStations;
     }
 
-    int findExactRoute(List<Station> route) {
+    int exactRouteDistance(List<Station> route) {
         if (route == null || route.isEmpty()) {
             return 0;
         }

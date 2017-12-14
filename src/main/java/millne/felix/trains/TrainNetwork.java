@@ -3,16 +3,13 @@ package millne.felix.trains;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TrainNetwork {
 
     private final Map<String, Station> stations = Maps.newHashMap();
-    private final ExactRouteFinder exactRouteFinder = new ExactRouteFinder(stations);
+    private final ExactRoute exactRoute = new ExactRoute(stations);
 
     public boolean hasStation(Station station) {
         return stations.containsKey(station.name());
@@ -39,8 +36,8 @@ public class TrainNetwork {
             addStation(destination);
         }
 
-        Station networkDeparture = stations.get(departure.name());
-        Station networkDestination = stations.get(destination.name());
+        Station networkDeparture = station(departure);
+        Station networkDestination = station(destination);
 
         networkDeparture.addRouteTo(networkDestination, distance);
     }
@@ -55,13 +52,13 @@ public class TrainNetwork {
             return true;
         }
 
-        Set<Station> allFoundStations = Sets.newHashSet(stations.get(departure.name()));
+        Set<Station> allFoundStations = Sets.newHashSet(station(departure));
 
         return hasComplexRouteToStation(departure, destination, allFoundStations);
     }
 
     private boolean hasComplexRouteToStation(Station departure, Station destination, Set<Station> allFoundStations) {
-        Collection<Station> routes = stations.get(departure.name()).routes();
+        Collection<Station> routes = station(departure).routes();
 
         Collection<Station> unprocessedStations = routes.stream()
                 .filter(station -> !allFoundStations.contains(station))
@@ -94,13 +91,21 @@ public class TrainNetwork {
 
     private boolean hasSingleStepRoute(Station departure, Station destination) {
 
-        Station networkDeparture = stations.get(departure.name());
-        Station networkDestination = stations.get(destination.name());
+        Station networkDeparture = station(departure);
+        Station networkDestination = station(destination);
 
         return networkDeparture.hasRouteTo(networkDestination);
     }
 
+    protected Station station(Station departure) {
+        return stations.get(departure.name());
+    }
+
     public int findExactRoute(List<Station> route) {
-        return exactRouteFinder.findExactRoute(route);
+        return exactRoute.exactRouteDistance(route);
+    }
+
+    public int findShortestDistance(Station departure, Station destination) {
+        return new ShortestRoute(stations, departure, destination).findShortestDistance();
     }
 }
