@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Map;
 
+//TODO YAGNI - Remove
 public class MapWalker {
     private final Map<Station, Station> confirmedShortestDistances;
     private final Station startNode;

@@ -20,7 +20,7 @@ public class SingleCharacterStationNameInputParser {
 
         ArrayList<RouteSet> parsedRoutes = Lists.newArrayList();
 
-        for(String splitString: testInput.split(" ")) {
+        for(String splitString: testInput.split(", ")) {
             char firstChar = splitString.charAt(0);
             char secondChar = splitString.charAt(1);
             String numString = splitString.substring(2);

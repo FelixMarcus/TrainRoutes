@@ -40,7 +40,7 @@ public class TestSingleCharacterStationNameInputParser {
 
     @Test
     public void testParseDoubleCharacterSetIntoRouteSet() {
-        String testInput = "AB1 BC2";
+        String testInput = "AB1, BC2";
         SingleCharacterStationNameInputParser testParser = new SingleCharacterStationNameInputParser();
         List<RouteSet> parseResult = testParser.parse(testInput);
 

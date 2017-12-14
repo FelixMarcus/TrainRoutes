@@ -10,9 +10,6 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 
-/**
- * Created by FelixMarcus on 14/12/2017.
- */
 public class TestMapWalker {
 
     @Test

@@ -11,7 +11,6 @@ public class ShortestRoute {
     private final Map<String, Station> trainNetwork;
     private final Map<Station, Integer> bestWorkingShortestPath = Maps.newHashMap();
     private final Map<Station, Integer> confirmedShortestDistances = Maps.newHashMap();
-    private final Map<Station, Station> previousStationOnShortestPath = Maps.newHashMap();
     private Station departure;
     private Station destination;
 
@@ -34,10 +33,6 @@ public class ShortestRoute {
 
     public int findShortestDistance() {
         return confirmedShortestDistances.get(destination);
-    }
-
-    public List<Station> getShortestRoute() {
-        return new MapWalker(previousStationOnShortestPath, this.destination).getRoute();
     }
 
     private Station findNextNearestStation(Station departureStation) {

@@ -102,10 +102,23 @@ public class TrainNetwork {
     }
 
     public int findExactRoute(List<Station> route) {
+
         return exactRoute.exactRouteDistance(route);
+    }
+
+    public String findSantisedExactRouteDistance(List<Station> route){
+        try{
+            return String.valueOf(findExactRoute(route));
+        } catch (IllegalArgumentException e){
+            return "NO_SUCH_ROUTE";
+        }
     }
 
     public int findShortestDistance(Station departure, Station destination) {
         return new ShortestRoute(stations, departure, destination).findShortestDistance();
+    }
+
+    public RouteSearch routesFor(Station departure, Station destination) {
+        return new RouteSearch(stations, departure, destination);
     }
 }
