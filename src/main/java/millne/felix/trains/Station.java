@@ -101,4 +101,9 @@ public class Station {
     public Collection<Station> routes() {
         return Sets.newHashSet(destinations.keySet());
     }
+
+    @Override
+    public String toString() {
+        return "Station "+ name;
+    }
 }

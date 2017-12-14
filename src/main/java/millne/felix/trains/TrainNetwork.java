@@ -100,6 +100,28 @@ public class TrainNetwork {
     }
 
     public int findExactRoute(List<Station> route) {
-        return 0;
+        if(route == null || route.isEmpty()) {
+            return 0;
+        }
+
+        Station departure = stations.get(route.get(0).name());
+        if(departure == null){
+            throw new IllegalArgumentException("Network does not have "+ route.get(0));
+        }
+
+        if(route.size() == 1){
+            return 0;
+        }
+
+        Station destination = stations.get(route.get(1).name());
+        if(destination == null){
+            throw new IllegalArgumentException("Network does not have "+ route.get(1));
+        }
+
+        if(!departure.hasRouteTo(destination)) {
+            throw new IllegalArgumentException("No route found between "+ departure + " and "+ destination);
+        }
+
+        return departure.getDistanceTo(destination);
     }
 }
