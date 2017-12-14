@@ -109,13 +109,21 @@ public class TrainNetwork {
             throw new IllegalArgumentException("Network does not have "+ route.get(0));
         }
 
-        if(route.size() == 1){
-            return 0;
+        int totalDistance = 0;
+
+        for (int destinationIndex = 0; destinationIndex < route.size() - 1; destinationIndex++) {
+            totalDistance += getDistanceForLeg(route, destinationIndex);
         }
 
-        Station destination = stations.get(route.get(1).name());
+        return totalDistance;
+    }
+
+    private int getDistanceForLeg(List<Station> route, int legIndex) {
+        Station departure = stations.get(route.get(legIndex).name());
+        Station routeDestination = route.get(legIndex + 1);
+        Station destination = stations.get(routeDestination.name());
         if(destination == null){
-            throw new IllegalArgumentException("Network does not have "+ route.get(1));
+            throw new IllegalArgumentException("Network does not have "+ routeDestination);
         }
 
         if(!departure.hasRouteTo(destination)) {

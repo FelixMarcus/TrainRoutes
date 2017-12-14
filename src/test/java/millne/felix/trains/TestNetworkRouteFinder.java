@@ -70,4 +70,44 @@ public class TestNetworkRouteFinder {
 
         assertEquals(1, exactRoute);
     }
+
+    @Test
+    public void testFindExactRouteWithThreeStationRouteOnNetworkReturnsDistance() {
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station testStationDeparture = new Station("A");
+        Station testStationDestination1 = new Station("B");
+        Station testStationDestination2 = new Station("C");
+        testNetwork.addRoute(testStationDeparture, testStationDestination1, 1);
+        testNetwork.addRoute(testStationDestination1, testStationDestination2, 2);
+        int exactRoute = testNetwork.findExactRoute(Lists.newArrayList(testStationDeparture, testStationDestination1, testStationDestination2));
+
+        assertEquals(3, exactRoute);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindExactRouteWithThreeStationRouteLastStationNotOnNetworkThrowException() {
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station testStationDeparture = new Station("A");
+        Station testStationDestination1 = new Station("B");
+        Station testStationDestination2 = new Station("C");
+        testNetwork.addRoute(testStationDeparture, testStationDestination1, 1);
+        int exactRoute = testNetwork.findExactRoute(Lists.newArrayList(testStationDeparture, testStationDestination1, testStationDestination2));
+
+        assertEquals(3, exactRoute);
+    }
+
+    @Test
+    public void testFindExactRouteWithThreeStationRouteOnForkedNetworkReturnsDistance() {
+        TrainNetwork testNetwork = new TrainNetwork();
+        Station testStationDeparture = new Station("A");
+        Station testStationDestination1 = new Station("B");
+        Station testStationDestination2 = new Station("C");
+        Station testStationNotADestination = new Station("D");
+        testNetwork.addRoute(testStationDeparture, testStationDestination1, 1);
+        testNetwork.addRoute(testStationDestination1, testStationDestination2, 2);
+        testNetwork.addRoute(testStationDestination1, testStationNotADestination, 4);
+        int exactRoute = testNetwork.findExactRoute(Lists.newArrayList(testStationDeparture, testStationDestination1, testStationDestination2));
+
+        assertEquals(3, exactRoute);
+    }
 }
