@@ -9,7 +9,7 @@ public class RouteSearch {
     private final Map<String, Station> stations;
     private final Station departure;
     private final Station destination;
-    private int maxStops = Integer.MAX_VALUE;
+    private int maxStops;
     private int maxDistance = Integer.MAX_VALUE;
     private int exactStops = -1;
 
@@ -18,6 +18,7 @@ public class RouteSearch {
         this.stations = stations;
         this.departure = departure;
         this.destination = destination;
+        maxStops = stations.size()*100;
     }
 
     public Collection<List<Station>> getAllRoutes(){
