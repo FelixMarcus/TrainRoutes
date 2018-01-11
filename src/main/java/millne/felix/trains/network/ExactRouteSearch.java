@@ -1,12 +1,12 @@
-package millne.felix.trains;
+package millne.felix.trains.network;
 
 import java.util.List;
 import java.util.Map;
 
-class ExactRoute {
+class ExactRouteSearch {
     private final Map<String, Station> networkStations;
 
-    ExactRoute(Map<String, Station> networkStations) {
+    ExactRouteSearch(Map<String, Station> networkStations) {
         this.networkStations = networkStations;
     }
 

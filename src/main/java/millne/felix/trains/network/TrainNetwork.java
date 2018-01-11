@@ -1,4 +1,4 @@
-package millne.felix.trains;
+package millne.felix.trains.network;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class TrainNetwork {
 
     private final Map<String, Station> stations = Maps.newHashMap();
-    private final ExactRoute exactRoute = new ExactRoute(stations);
+    private final ExactRouteSearch exactRouteSearch = new ExactRouteSearch(stations);
 
     public boolean hasStation(Station station) {
         return stations.containsKey(station.name());
@@ -103,7 +103,7 @@ public class TrainNetwork {
 
     public int findExactRoute(List<Station> route) {
 
-        return exactRoute.exactRouteDistance(route);
+        return exactRouteSearch.exactRouteDistance(route);
     }
 
     public String findSantisedExactRouteDistance(List<Station> route){
@@ -115,10 +115,10 @@ public class TrainNetwork {
     }
 
     public int findShortestDistance(Station departure, Station destination) {
-        return new ShortestRoute(stations, departure, destination).findShortestDistance();
+        return new ShortestRouteSearch(stations, departure, destination).findShortestDistance();
     }
 
-    public RouteSearch routesFor(Station departure, Station destination) {
-        return new RouteSearch(stations, departure, destination);
+    public AllRoutesSearch routesFor(Station departure, Station destination) {
+        return new AllRoutesSearch(stations, departure, destination);
     }
 }

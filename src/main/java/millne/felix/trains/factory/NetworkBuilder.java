@@ -1,6 +1,6 @@
 package millne.felix.trains.factory;
 
-import millne.felix.trains.TrainNetwork;
+import millne.felix.trains.network.TrainNetwork;
 
 import java.util.Collection;
 

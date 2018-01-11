@@ -1,8 +1,8 @@
 package millne.felix.trains.factory;
 
 import com.google.common.collect.Sets;
-import millne.felix.trains.Station;
-import millne.felix.trains.TrainNetwork;
+import millne.felix.trains.network.Station;
+import millne.felix.trains.network.TrainNetwork;
 import org.junit.Test;
 
 import java.util.Collection;

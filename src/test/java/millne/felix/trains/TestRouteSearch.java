@@ -2,6 +2,9 @@ package millne.felix.trains;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import millne.felix.trains.network.AllRoutesSearch;
+import millne.felix.trains.network.Station;
+import millne.felix.trains.network.TrainNetwork;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ public class TestRouteSearch {
         Station testDepartureStation = new Station("A");
         Station testDestinationStation = new Station("B");
         testNetwork.addRoute(testDepartureStation, testDestinationStation, 1);
-        RouteSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
+        AllRoutesSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
         Collection<List<Station>> foundRoutes = allRoutes.search();
 
         assertEquals(1, foundRoutes.size());
@@ -38,7 +41,7 @@ public class TestRouteSearch {
         testNetwork.addRoute(testDepartureStation, testDestinationStation, 1);
         testNetwork.addRoute(testDepartureStation, testIntermediateStation, 1);
         testNetwork.addRoute(testIntermediateStation, testDestinationStation, 1);
-        RouteSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
+        AllRoutesSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
         Collection<List<Station>> foundRoutes = allRoutes.search();
 
         assertEquals(2, foundRoutes.size());
@@ -60,7 +63,7 @@ public class TestRouteSearch {
         testNetwork.addRoute(testDepartureStation, testIntermediateStation, 1);
         testNetwork.addRoute(testIntermediateStation, testIntermediateStation2, 1);
         testNetwork.addRoute(testIntermediateStation2, testDestinationStation, 1);
-        RouteSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
+        AllRoutesSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
         Collection<List<Station>> foundRoutes = allRoutes.maxStops(4).search();
 
         assertEquals(1, foundRoutes.size());
@@ -79,7 +82,7 @@ public class TestRouteSearch {
         testNetwork.addRoute(testDepartureStation, testDestinationStation, 1);
         testNetwork.addRoute(testDepartureStation, testIntermediateStation, 1);
         testNetwork.addRoute(testIntermediateStation, testDestinationStation, 1);
-        RouteSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
+        AllRoutesSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
         Collection<List<Station>> foundRoutes = allRoutes.maxStops(0).search();
 
         assertEquals(1, foundRoutes.size());
@@ -139,7 +142,7 @@ public class TestRouteSearch {
         Station testDepartureStation = new Station("A");
         Station testDestinationStation = new Station("B");
         testNetwork.addRoute(testDepartureStation, testDestinationStation, 2);
-        RouteSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
+        AllRoutesSearch allRoutes = testNetwork.routesFor(testDepartureStation, testDestinationStation);
         Collection<List<Station>> foundRoutes = allRoutes.limitDistance(2).search();
 
         assertEquals(0, foundRoutes.size());

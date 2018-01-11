@@ -1,4 +1,4 @@
-package millne.felix.trains;
+package millne.felix.trains.network;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
@@ -6,7 +6,6 @@ import com.google.common.collect.Sets;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by FelixMarcus on 13/12/2017.
@@ -58,7 +57,7 @@ public class Station {
      * @param destination - Target station of new route
      * @param distance    - Distance to @destination
      */
-    void addRouteTo(Station destination, int distance) {
+    public void addRouteTo(Station destination, int distance) {
         if(destination == null){
             throw new IllegalArgumentException("Cannot set station route destination to nowhere");
         }

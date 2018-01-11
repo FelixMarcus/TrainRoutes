@@ -1,6 +1,9 @@
-package millne.felix.trains;
+package millne.felix;
 
 import com.google.common.collect.Lists;
+import millne.felix.trains.io.NetworkFileReader;
+import millne.felix.trains.network.Station;
+import millne.felix.trains.network.TrainNetwork;
 import millne.felix.trains.factory.NetworkBuilder;
 import millne.felix.trains.factory.RouteSet;
 import millne.felix.trains.parser.SingleCharacterStationNameInputParser;
@@ -14,9 +17,13 @@ public class PrettyTestPrinter {
 
         String input;
         if(args.length == 0){
+            System.out.println("Using default network");
             input = "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
         } else {
-            input = args[0];
+            String fileName = args[0];
+
+            input = new NetworkFileReader().getNetworkStringFromFile(fileName);
+
         }
 
         SingleCharacterStationNameInputParser parser = new SingleCharacterStationNameInputParser();
@@ -43,7 +50,7 @@ public class PrettyTestPrinter {
         );
         System.out.println("Result: "+ exactRouteDistance2);
 
-        System.out.println("Test 3: The distance of the route A-D-C (expected = 12 - Should be expecting 13!)");
+        System.out.println("Test 3: The distance of the route A-D-C (expected = 13)");
         String exactRouteDistance3 = network.findSantisedExactRouteDistance(
                 Lists.newArrayList(
                         new Station("A"),
@@ -96,4 +103,5 @@ public class PrettyTestPrinter {
         int numberOfRoutes10 = network.routesFor(new Station("C"), new Station("C")).limitDistance(30).search().size();
         System.out.println("Result: "+ numberOfRoutes10);
     }
+
 }

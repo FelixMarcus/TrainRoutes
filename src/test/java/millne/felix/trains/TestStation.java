@@ -1,5 +1,6 @@
 package millne.felix.trains;
 
+import millne.felix.trains.network.Station;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;

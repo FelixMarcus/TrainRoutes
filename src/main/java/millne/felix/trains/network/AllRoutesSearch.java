@@ -1,20 +1,21 @@
-package millne.felix.trains;
+package millne.felix.trains.network;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import java.util.*;
 
-public class RouteSearch {
+public class AllRoutesSearch {
     private final Map<String, Station> stations;
     private final Station departure;
     private final Station destination;
     private int maxStops;
     private int maxDistance = Integer.MAX_VALUE;
     private int exactStops = -1;
+    private boolean getMaxStopsChanged = false;
 
 
-    public RouteSearch(Map<String, Station> stations, Station departure, Station destination) {
+    public AllRoutesSearch(Map<String, Station> stations, Station departure, Station destination) {
         this.stations = stations;
         this.departure = departure;
         this.destination = destination;
@@ -37,26 +38,9 @@ public class RouteSearch {
         Set<List<Station>> foundRoutes = Sets.newHashSet();
         for(Station route: routes){
 
-            int currentDistance = lastDistance + thisStop.getDistanceTo(route);
-            if(currentDistance >= maxDistance){
-                continue;
-            }
-
-            if(route.equals(destination)){
-                if(isExactNumOfStops(numOfStops)) {
-                    foundRoutes.add(Lists.newArrayList(route));
-                }
-            }
-            int thisStopNumber = numOfStops + 1;
-            if(thisStopNumber > maxStops){
-                continue;
-            }
-
-            findRoutesToDestination(
-                    route,
-                    thisStopNumber,
-                    currentDistance)
-                    .forEach(foundRoutes::add);
+            foundRoutes.addAll(
+                    getRoutesFor(numOfStops, lastDistance, thisStop, route)
+            );
         }
 
         for(List<Station> foundRoute: foundRoutes){
@@ -66,23 +50,52 @@ public class RouteSearch {
         return foundRoutes;
     }
 
+    private Set<List<Station>> getRoutesFor(int numOfStops, int lastDistance, Station thisStop, Station route) {
+        Set<List<Station>> newFoundRoutes = Sets.newHashSet();
+        int currentDistance = lastDistance + thisStop.getDistanceTo(route);
+        if(currentDistance >= maxDistance){
+            return newFoundRoutes;
+        }
+
+        if (route.equals(destination) && isExactNumOfStops(numOfStops)) {
+            newFoundRoutes.add(Lists.newArrayList(route));
+        }
+        int thisStopNumber = numOfStops + 1;
+        if(thisStopNumber > maxStops){
+            return newFoundRoutes;
+        }
+
+        findRoutesToDestination(
+                route,
+                thisStopNumber,
+                currentDistance)
+                .forEach(newFoundRoutes::add);
+        return newFoundRoutes;
+    }
+
     private boolean isExactNumOfStops(int numOfStops) {
         return exactStops == -1 || numOfStops == exactStops;
     }
 
-    public RouteSearch maxStops(int i) {
+    public AllRoutesSearch maxStops(int i) {
         this.maxStops = i;
+        this.getMaxStopsChanged = true;
         return this;
     }
 
-    public RouteSearch limitDistance(int i) {
+    public AllRoutesSearch limitDistance(int i) {
         this.maxDistance = i;
+        if(!getMaxStopsChanged){
+            maxStops = Integer.MAX_VALUE;
+        }
         return this;
     }
 
-    public RouteSearch exactStops(int i) {
+    public AllRoutesSearch exactStops(int i) {
         this.exactStops = i;
-        this.maxStops = i;
+        if(!getMaxStopsChanged){
+            maxStops = exactStops + 1;
+        }
         return this;
     }
 }

@@ -1,20 +1,19 @@
-package millne.felix.trains;
+package millne.felix.trains.network;
 
 import com.google.common.collect.Maps;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
-public class ShortestRoute {
+public class ShortestRouteSearch {
     private final Map<String, Station> trainNetwork;
     private final Map<Station, Integer> bestWorkingShortestPath = Maps.newHashMap();
     private final Map<Station, Integer> confirmedShortestDistances = Maps.newHashMap();
     private Station departure;
     private Station destination;
 
-    public ShortestRoute(Map<String, Station> networkStations, Station departure, Station destination) {
+    public ShortestRouteSearch(Map<String, Station> networkStations, Station departure, Station destination) {
         this.trainNetwork = networkStations;
         this.departure = departure;
         this.destination = destination;
